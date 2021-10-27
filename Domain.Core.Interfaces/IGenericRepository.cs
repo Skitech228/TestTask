@@ -7,9 +7,9 @@ namespace Domain.Core.Interfaces
 {
     public interface IGenericRepository: IDisposable
     {
-        IEnumerable<Photo> GetPhotoList();
 
-        Photo GetPhoto(int id); 
+        Photo GetPhoto(int id);
+
         void Create(Photo item);
 
         void Update(Photo item);
