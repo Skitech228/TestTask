@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AssemblyName>TestTask</AssemblyName>
+    <RootNamespace>TestTask.Application</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TestTask.Database\TestTask.Database.csproj" />
+    <ProjectReference Include="..\TestTask.Shared\TestTask.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

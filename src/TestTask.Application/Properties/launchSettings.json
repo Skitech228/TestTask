@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TestTask.Application": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\Asus\\source\\repos\\TestTask\\src\\TestTask.Application"
+    }
+  }
+}
