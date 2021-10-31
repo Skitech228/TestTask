@@ -15,5 +15,6 @@ namespace TestTask.Domain.Entity
         public int AuthorId { get; set; }
         public int Cost { get; set; }
         public int PurchasesMadeNumber { get; set; }
+        public Author Author { get; set; }
     }
 }

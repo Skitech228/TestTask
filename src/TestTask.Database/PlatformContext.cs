@@ -15,6 +15,7 @@ namespace TestTask.Database
         public PlatformContext(DbContextOptions<PlatformContext> options)
                 : base(options) { }
 
+        public DbSet<Author> Authors { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Text> Texts { get; set; }
 

@@ -15,6 +15,8 @@ namespace TestTask.Database.Configuration
         {
             builder.ToTable("Products");
             builder.HasKey(x => x.Id);
+            builder.Navigation(x=>x.Author)
+                    .UsePropertyAccessMode(PropertyAccessMode.Property);
 
             builder.HasDiscriminator<ProductType>("ProductType")
                     .HasValue<Product>(ProductType.Product)

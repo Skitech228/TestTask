@@ -19,7 +19,7 @@ namespace TestTask.Application.Repository
 
         public async Task DisposeAsync() => await _context.DisposeAsync();
 
-        public async Task<List<Text>> GetTextListAsync() => await _context.Texts.ToListAsync();
+        public async Task<List<Text>> GetTextListAsync() => await _context.Texts.Include(x => x.Author).ToListAsync();
 
         public async Task<Text> GetTextAsync(int id) => await _context.Texts.FindAsync(id);
 

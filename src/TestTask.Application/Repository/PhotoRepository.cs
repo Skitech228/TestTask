@@ -19,7 +19,8 @@ namespace TestTask.Application.Repository
 
         public async Task DisposeAsync() => await _context.DisposeAsync();
 
-        public async Task<List<Photo>> GetPhotoListAsync() => await _context.Photos.ToListAsync();
+        public async Task<List<Photo>> GetPhotoListAsync() =>
+                await _context.Photos.Include(x => x.Author).ToListAsync();
 
         public async Task<Photo> GetPhotoAsync(int id) => await _context.Photos.FindAsync(id);
 

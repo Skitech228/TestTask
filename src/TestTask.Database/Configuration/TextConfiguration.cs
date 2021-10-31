@@ -15,6 +15,7 @@ namespace TestTask.Database
             builder.Property(x => x.Content)
                     .HasColumnName("Content")
                     .HasColumnType("nvarchar")
+                    .HasMaxLength(10)
                     .IsRequired();
         }
     }
