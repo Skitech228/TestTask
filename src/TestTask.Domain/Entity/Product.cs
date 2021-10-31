@@ -6,7 +6,7 @@ using System;
 
 namespace TestTask.Domain.Entity
 {
-    public class Product
+    public abstract class Product
     {
         public int Id { get; set; }
         public string Title { get; set; }

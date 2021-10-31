@@ -1,14 +1,13 @@
 #region Using derectives
 
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using TestTask.Application.Services;
 using TestTask.Domain.Entity;
-using TestTask.Shared;
-using TestTask.Shared.IEntityServices;
+using TestTask.Shared.IEntityRepositories;
 
 #endregion
 
@@ -16,13 +15,15 @@ namespace TestTask.UI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class TexstsController : ControllerBase
+    public class TextsController : ControllerBase
     {
         private readonly ILogger<PhotosController> _logger;
         private readonly ITextRepository _textRepository;
-        private readonly ITextService _textService;
+        private readonly TextService _textService;
 
-        public TexstsController(ILogger<PhotosController> logger, ITextRepository textRepository, ITextService textService)
+        public TextsController(ILogger<PhotosController> logger,
+                               ITextRepository textRepository,
+                               TextService textService)
         {
             _logger = logger;
             _textRepository = textRepository;
@@ -36,24 +37,6 @@ namespace TestTask.UI.Controllers
         //GET Texts/{id}
         [HttpGet("{id}")]
         public async Task<Text> GetText(int id) => await _textRepository.GetTextAsync(id);
-
-        ////GET Texts/
-        //[HttpPost]
-        //public async Task<byte[]> GetTextInCsv()
-        //{
-        //    byte[] data;
-
-        //    using (MemoryStream stream = new MemoryStream())
-        //        using (TextWriter textWriter = new StreamWriter(stream))
-        //            using (CsvWriter csv = new CsvWriter(textWriter, new CsvConfiguration(new CultureInfo(0))))
-        //            {
-        //                await csv.WriteRecordsAsync(await _textRepository.GetTextListAsync());
-        //                await textWriter.FlushAsync();
-        //                data = stream.ToArray();
-        //            }
-
-        //    return data;
-        //}
 
         //POST Texts/
         [HttpPost]
@@ -80,12 +63,14 @@ namespace TestTask.UI.Controllers
 
             await _textRepository.SaveAsync();
         }
-        [HttpHead]
-        public async Task<IActionResult> File()
-        {
-            _textService.WriteCSVFile(Request.Path,await _textRepository.GetTextListAsync());  
 
-            return PhysicalFile(Request.Path,"csv");
+        [HttpGet]
+        [Route("Export")]
+        public async Task<string> File()
+        {
+            _textService.WriteCSVFile("1.txt", await _textRepository.GetTextListAsync());
+
+            return await new StreamReader("1.txt").ReadToEndAsync();
         }
     }
 }

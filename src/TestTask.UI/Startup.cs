@@ -10,8 +10,7 @@ using Microsoft.OpenApi.Models;
 using TestTask.Application.Repository;
 using TestTask.Application.Services;
 using TestTask.Database;
-using TestTask.Shared;
-using TestTask.Shared.IEntityServices;
+using TestTask.Shared.IEntityRepositories;
 
 #endregion
 
@@ -28,9 +27,11 @@ namespace TestTask.UI
             var connection = Configuration.GetConnectionString("DefaultConnection");
 
             services.AddDbContext<PlatformContext>(options =>
-                                                           options.UseSqlServer(connection));
+                                                           options.UseSqlServer(connection,
+                                                                                b =>
+                                                                                        b.MigrationsAssembly("TestTask.UI")));
 
-            services.AddScoped<ITextService, TextService>();
+            services.AddScoped<TextService>();
             services.AddScoped<IPhotoRepository, PhotoRepository>();
             services.AddScoped<ITextRepository, TextRepository>();
             services.AddControllersWithViews();

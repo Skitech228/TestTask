@@ -1,5 +1,9 @@
-﻿using CsvHelper.Configuration;
+﻿#region Using derectives
+
+using CsvHelper.Configuration;
 using TestTask.Domain.Entity;
+
+#endregion
 
 namespace TestTask.Shared.Mappers
 {
@@ -14,7 +18,7 @@ namespace TestTask.Shared.Mappers
             Map(x => x.Size).Name("Size");
             Map(x => x.Title).Name("Title");
             Map(x => x.Content).Name("Content");
-            Map(x => x.AuthorId).Name("AuthorId"); 
+            Map(x => x.AuthorId).Name("AuthorId");
         }
     }
 }

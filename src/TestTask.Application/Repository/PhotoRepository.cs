@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TestTask.Database;
 using TestTask.Domain.Entity;
-using TestTask.Shared;
+using TestTask.Shared.IEntityRepositories;
 
 #endregion
 

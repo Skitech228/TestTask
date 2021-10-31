@@ -6,7 +6,7 @@ using TestTask.Domain.Entity;
 
 #endregion
 
-namespace TestTask.Shared
+namespace TestTask.Shared.IEntityRepositories
 {
     public interface ITextRepository
     {

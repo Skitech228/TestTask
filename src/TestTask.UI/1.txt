@@ -1,0 +1,2 @@
+﻿Content,Id,Title,Size,CreationDate,AuthorId,Cost,PurchasesMadeNumber,Id,AuthorName,Nickname,Age,AccountCreationDate
+s,16,s,1,31.10.2021 00:00:00,6,10,10,6,Name,Nick,18,01.01.0001 00:00:00
