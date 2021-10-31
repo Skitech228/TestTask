@@ -17,6 +17,7 @@ namespace TestTask.Database.Configuration
             builder.HasKey(x => x.Id);
 
             builder.HasDiscriminator<ProductType>("ProductType")
+                    .HasValue<Product>(ProductType.Product)
                     .HasValue<Photo>(ProductType.Photo)
                     .HasValue<Text>(ProductType.Text);
         }

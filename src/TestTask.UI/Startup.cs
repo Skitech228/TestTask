@@ -28,9 +28,9 @@ namespace TestTask.UI
             services.AddDbContext<PlatformContext>(options =>
                                                            options.UseSqlServer(connection));
 
+            services.AddScoped<IPhotoRepository, PhotoRepository>();
             services.AddControllersWithViews();
             services.AddControllers();
-            //services.AddScoped<IPhotoRepository, PhotoRepository>();
 
             services.AddSwaggerGen(c =>
                                    {
