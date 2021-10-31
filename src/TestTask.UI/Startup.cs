@@ -1,7 +1,5 @@
 #region Using derectives
 
-using System.Reflection;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using TestTask.Application.Repository;
 using TestTask.Database;
+using TestTask.Shared;
 
 #endregion
 
@@ -23,13 +23,14 @@ namespace TestTask.UI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            string connection = Configuration.GetConnectionString("DefaultConnection");
+            var connection = Configuration.GetConnectionString("DefaultConnection");
 
             services.AddDbContext<PlatformContext>(options =>
-                                                              options.UseSqlServer(connection));
+                                                           options.UseSqlServer(connection));
 
             services.AddControllersWithViews();
             services.AddControllers();
+            //services.AddScoped<IPhotoRepository, PhotoRepository>();
 
             services.AddSwaggerGen(c =>
                                    {

@@ -1,6 +1,6 @@
 ﻿namespace TestTask.Domain.Enum
 {
-    public enum ProductTipe
+    public enum ProductType
     {
         Photo = 1,
         Text = 2

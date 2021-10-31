@@ -10,18 +10,20 @@ namespace TestTask.Shared
 {
     public interface ITextRepository
     {
-        Task<List<Text>> GetTextList();
+        Task DisposeAsync();
 
-        Task<Text> GetText(int id);
+        Task<List<Text>> GetTextListAsync();
 
-        Task Create(Text item);
+        Task<Text> GetTextAsync(int id);
 
-        Task Update(Text item);
+        Task CreateAsync(Text item);
 
-        Task Delete(int id);
+        Task UpdateAsync(Text item);
 
-        Task Save();
+        Task DeleteAsync(int id);
 
-        Task<bool> IsExists(int id);
+        Task SaveAsync();
+
+        Task<bool> IsExists(Text item);
     }
 }

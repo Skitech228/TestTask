@@ -1,6 +1,5 @@
 ﻿#region Using derectives
 
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TestTask.Domain.Entity;
@@ -9,20 +8,22 @@ using TestTask.Domain.Entity;
 
 namespace TestTask.Shared
 {
-    public interface IPhotoRepository : IDisposable
+    public interface IPhotoRepository
     {
-        Task<List<Photo>> GetPhotoList();
+        Task DisposeAsync();
 
-        Task<Photo> GetPhoto(int id);
+        Task<List<Photo>> GetPhotoListAsync();
 
-        Task Create(Photo item);
+        Task<Photo> GetPhotoAsync(int id);
 
-        Task Update(Photo item);
+        Task CreateAsync(Photo item);
 
-        Task Delete(int id);
+        Task UpdateAsync(Photo item);
 
-        Task Save();
+        Task DeleteAsync(int id);
 
-        Task<bool> IsExists(int id);
+        Task SaveAsync();
+
+        Task<bool> IsExists(Photo item);
     }
 }

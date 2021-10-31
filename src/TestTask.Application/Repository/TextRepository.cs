@@ -1,12 +1,13 @@
-﻿using System;
+﻿#region Using derectives
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TestTask.Database;
 using TestTask.Domain.Entity;
 using TestTask.Shared;
+
+#endregion
 
 namespace TestTask.Application.Repository
 {
@@ -14,48 +15,23 @@ namespace TestTask.Application.Repository
     {
         private readonly PlatformContext _context;
 
-        public TextRepository(PlatformContext context)
-        {
-            _context = context;
-        }
+        public TextRepository(PlatformContext context) => _context = context;
 
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
+        public async Task DisposeAsync() => await _context.DisposeAsync();
 
-        public async Task<List<Text>> GetTextList() => await _context.Texts.ToListAsync();
+        public async Task<List<Text>> GetTextListAsync() => await _context.Texts.ToListAsync();
 
-        public async Task<Text> GetText(int id) => await _context.Texts.FindAsync(id);
+        public async Task<Text> GetTextAsync(int id) => await _context.Texts.FindAsync(id);
 
-        public async Task Create(Text item)
-        {
-            await _context.Texts.AddAsync(item);
-            await _context.SaveChangesAsync();
-        }
+        public async Task CreateAsync(Text item) => await _context.Texts.AddAsync(item);
 
-        public async Task Update(Text item)
-        {
-            _context.Entry(item).State = EntityState.Modified;
+        public async Task UpdateAsync(Text item) => await Task.Run(() => { _context.Texts.Update(item); });
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                return;
-            }
-        }
+        public async Task DeleteAsync(int id) =>
+                await Task.Run(() => { _context.Texts.Remove(_context.Texts.Find(id)); });
 
-        public async Task Delete(int id)
-        {
-            _context.Texts.Remove(await _context.Texts.FindAsync(id));
-            await _context.SaveChangesAsync();
-        }
+        public async Task SaveAsync() => await _context.SaveChangesAsync();
 
-        public async Task Save() => await _context.SaveChangesAsync();
-
-        public async Task<bool> IsExists(int id) => await _context.Texts.AnyAsync(x => x.Id == id);
+        public async Task<bool> IsExists(Text item) => await _context.Texts.AnyAsync(x => x.Id == item.Id);
     }
 }

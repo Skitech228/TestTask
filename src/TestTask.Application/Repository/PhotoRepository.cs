@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
+﻿#region Using derectives
+
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TestTask.Database;
 using TestTask.Domain.Entity;
 using TestTask.Shared;
+
+#endregion
 
 namespace TestTask.Application.Repository
 {
@@ -12,47 +15,23 @@ namespace TestTask.Application.Repository
     {
         private readonly PlatformContext _context;
 
-        public PhotoRepository(PlatformContext context)
-        {
-            _context = context;
-        }
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
+        public PhotoRepository(PlatformContext context) => _context = context;
 
-        public async Task<List<Photo>> GetPhotoList() => await _context.Photos.ToListAsync();
+        public async Task DisposeAsync() => await _context.DisposeAsync();
 
-        public async Task<Photo> GetPhoto(int id) => await _context.Photos.FindAsync(id);
+        public async Task<List<Photo>> GetPhotoListAsync() => await _context.Photos.ToListAsync();
 
-        public async Task Create(Photo item)
-        { 
-            await _context.Photos.AddAsync(item);
-            await _context.SaveChangesAsync();
-        }
+        public async Task<Photo> GetPhotoAsync(int id) => await _context.Photos.FindAsync(id);
 
-        public async Task Update(Photo item)
-        {
-            _context.Entry(item).State = EntityState.Modified;
+        public async Task CreateAsync(Photo item) => await _context.Photos.AddAsync(item);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                return;
-            }
-        }
+        public async Task UpdateAsync(Photo item) => await Task.Run(() => { _context.Photos.Update(item); });
 
-        public async Task Delete(int id)
-        {
-            _context.Photos.Remove(await _context.Photos.FindAsync(id));
-            await _context.SaveChangesAsync();
-        }
+        public async Task DeleteAsync(int id) =>
+                await Task.Run(() => { _context.Photos.Remove(_context.Photos.Find(id)); });
 
-        public async Task Save() => await _context.SaveChangesAsync();
+        public async Task SaveAsync() => await _context.SaveChangesAsync();
 
-        public async Task<bool> IsExists(int id) => await _context.Photos.AnyAsync(x => x.Id == id);
+        public async Task<bool> IsExists(Photo item) => await _context.Photos.AnyAsync(x => x.Id == item.Id);
     }
 }

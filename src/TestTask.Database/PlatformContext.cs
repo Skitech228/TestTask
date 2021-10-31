@@ -10,21 +10,22 @@ namespace TestTask.Database
 {
     public class PlatformContext : DbContext
     {
-
         public PlatformContext()
         {
             Database.EnsureCreated();
         }
 
+        public PlatformContext(DbContextOptions<PlatformContext> options)
+                : base(options)
+        {
+            Database.EnsureCreated();
+        }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Text> Texts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProductConfiguration).Assembly);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AutorConfiguration).Assembly);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProductConfiguration).Assembly);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(TextConfiguration).Assembly);
             base.OnModelCreating(modelBuilder);
         }
     }

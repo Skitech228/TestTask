@@ -14,7 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TestTask.Application\TestTask.Application.csproj" />
     <ProjectReference Include="..\TestTask.Database\TestTask.Database.csproj" />
+    <ProjectReference Include="..\TestTask.Shared\TestTask.Shared.csproj" />
   </ItemGroup>
 
 </Project>
