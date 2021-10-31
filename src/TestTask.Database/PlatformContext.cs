@@ -10,16 +10,11 @@ namespace TestTask.Database
 {
     public class PlatformContext : DbContext
     {
-        public PlatformContext()
-        {
-            Database.EnsureCreated();
-        }
+        public PlatformContext() { }
 
         public PlatformContext(DbContextOptions<PlatformContext> options)
-                : base(options)
-        {
-            Database.EnsureCreated();
-        }
+                : base(options) { }
+
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Text> Texts { get; set; }
 
